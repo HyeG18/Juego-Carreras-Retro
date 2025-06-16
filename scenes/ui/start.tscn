@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtd477d5mhfqf"]
+
+[ext_resource type="Texture2D" uid="uid://j54swu8k727j" path="res://assets/images/background.png" id="1_6o3pa"]
+[ext_resource type="Texture2D" uid="uid://bwcd2t8r5j7w2" path="res://assets/images/logo.png" id="2_ga4bg"]
+[ext_resource type="FontFile" uid="uid://i6mqj2a8iu0b" path="res://assets/fonts/Audiowide-Regular.ttf" id="3_1mq3k"]
+
+[node name="start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_6o3pa")
+expand_mode = 3
+stretch_mode = 6
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.392
+anchor_right = 0.5
+anchor_bottom = 0.392
+offset_left = -321.0
+offset_top = -179.016
+offset_right = 321.0
+offset_bottom = 178.984
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ga4bg")
+expand_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.708
+anchor_right = 0.5
+anchor_bottom = 0.708
+offset_left = -374.0
+offset_top = -28.784
+offset_right = 374.0
+offset_bottom = 29.216
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("3_1mq3k")
+theme_override_font_sizes/normal_font_size = 35
+text = "PRESIONA \"START\" PARA EMPEZAR"
+horizontal_alignment = 1
