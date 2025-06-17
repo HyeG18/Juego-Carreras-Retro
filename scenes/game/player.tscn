@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://e6u1cb7st0gu"]
+
+[ext_resource type="Texture2D" uid="uid://q8jlu0mo37r6" path="res://assets/images/player_prueba.png" id="1_6w7gq"]
+[ext_resource type="Script" uid="uid://b5rqt3l8ttkld" path="res://scrpits/game/player.gd" id="1_dd427"]
+[ext_resource type="Script" uid="uid://dkvnncguasv31" path="res://scrpits/game/run_effect.gd" id="3_u3rb4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd427"]
+size = Vector2(127, 47.25)
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_dd427")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.457317, 0.488281)
+texture = ExtResource("1_6w7gq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dd427")
+
+[node name="Run_effect" type="Node" parent="."]
+script = ExtResource("3_u3rb4")
+
+[node name="Run_effect_Timer" type="Timer" parent="Run_effect"]
+one_shot = true

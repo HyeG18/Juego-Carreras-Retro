@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://xo3jb716ddd7"]
+
+[ext_resource type="Texture2D" uid="uid://bxf8h5sql0mla" path="res://assets/images/mushroom.png" id="1_d0i66"]
+[ext_resource type="Script" uid="uid://d1trrvd24o1b" path="res://scrpits/game/mushroom.gd" id="2_hf6ke"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hf6ke"]
+radius = 226.191
+
+[node name="Mushroom" type="Sprite2D"]
+scale = Vector2(0.248503, 0.228916)
+texture = ExtResource("1_d0i66")
+script = ExtResource("2_hf6ke")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_hf6ke")
+
+[connection signal="area_shape_exited" from="Area2D" to="." method="_on_area_2d_area_shape_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
