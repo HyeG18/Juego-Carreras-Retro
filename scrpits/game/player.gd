@@ -7,7 +7,18 @@ const RUN_SPEED = 300
 
 var debe_correr: bool = false
 
+#variables para que el jugador gire
+var is_spinning = false
+var spin_timer = 0.7  # duración del giro en segundos
+var spin_speed = 10.0  # velocidad de giro
+
 signal run_effect
+
+signal spin_effect
+
+func spin_effect_init() -> void:
+	spin_effect.emit()
+	print("spin_effect_init() ")
 
 func run_effect_init() -> void:
 	run_effect.emit()
@@ -29,5 +40,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x = direction *(RUN_SPEED if debe_correr else SPEED ) 
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+	#spin part
+	if is_spinning:
+		rotation += spin_speed * delta
+		spin_timer -= delta
+		if spin_timer <= 0:
+			is_spinning = false
+			spin_timer = 0.5	
 
 	move_and_slide()
