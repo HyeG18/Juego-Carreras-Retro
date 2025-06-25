@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://oplay2dwowr8"]
+
+[ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="2_4hew7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsxc0"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_pe05s"]
+sky_material = SubResource("ProceduralSkyMaterial_xsxc0")
+
+[sub_resource type="Environment" id="Environment_ubi47"]
+background_mode = 2
+sky = SubResource("Sky_pe05s")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Mundo" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ubi47")
+
+[node name="Mapa" type="Node3D" parent="."]
+
+[node name="Suelo" type="CSGBox3D" parent="Mapa"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.585351, 0)
+use_collision = true
+size = Vector3(100, 1, 100)
+
+[node name="Obstacle" type="CSGBox3D" parent="Mapa"]
+transform = Transform3D(-0.000354824, -0.0131895, 0.999913, 0.999638, -0.0268923, 0, 0.02689, 0.999551, 0.0131943, -0.212783, 0.866072, -13.0569)
+use_collision = true
+size = Vector3(5, 1, 5)
+
+[node name="Nissan GTR" parent="." instance=ExtResource("2_4hew7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36608, 0.74761, 7.64559)
