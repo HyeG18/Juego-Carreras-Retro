@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://oplay2dwowr8"]
+[gd_scene load_steps=6 format=3 uid="uid://oplay2dwowr8"]
 
 [ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="2_4hew7"]
+[ext_resource type="PackedScene" uid="uid://brpt4wnfb70sf" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsxc0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -38,3 +39,6 @@ size = Vector3(5, 1, 5)
 
 [node name="Nissan GTR" parent="." instance=ExtResource("2_4hew7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36608, 0.74761, 7.64559)
+
+[node name="Area3D" parent="." instance=ExtResource("2_t54x5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0799768, -0.085351, 12.9433)
