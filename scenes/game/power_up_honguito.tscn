@@ -1,12 +1,12 @@
 [gd_scene load_steps=4 format=3 uid="uid://brpt4wnfb70sf"]
 
-[ext_resource type="Script" uid="uid://dtjm8ul256s6f" path="res://honguito.gd" id="1_ngcdk"]
+[ext_resource type="Script" uid="uid://cyleln2s0hace" path="res://scrpits/game/honguito.gd" id="1_ngcdk"]
 [ext_resource type="PackedScene" uid="uid://bjy8qrqvu0ls4" path="res://assets/Models/Power-Ups/Power_Up.FBX" id="1_x0262"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_k0237"]
 radius = 0.907669
 
-[node name="Area3D" type="Area3D"]
+[node name="Honguito" type="Area3D"]
 script = ExtResource("1_ngcdk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

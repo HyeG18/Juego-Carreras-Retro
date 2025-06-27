@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ds6d62uih0hle"]
+
+[ext_resource type="PackedScene" uid="uid://svu0oojag4vq" path="res://assets/Models/Power-Ups/Extra_Life.FBX" id="1_htlu8"]
+
+[sub_resource type="GDScript" id="GDScript_htlu8"]
+script/source = "extends Area3D
+
+@export var spin_duration: float = 2.0
+@export var spin_force: float = 5.0
+
+func _on_body_entered(body: Node3D) -> void:
+	if body.name == \"Nissan GTR\" and body.has_method(\"apply_spin_out\"):
+		body.apply_spin_out(spin_force, spin_duration)
+		print(\"Choque con la banana\")
+		queue_free()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wvo54"]
+radius = 0.698636
+
+[node name="Banana" type="Area3D"]
+script = SubResource("GDScript_htlu8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_wvo54")
+
+[node name="Extra_Life" parent="." instance=ExtResource("1_htlu8")]
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
