@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds6d62uih0hle"]
 
-[ext_resource type="PackedScene" uid="uid://svu0oojag4vq" path="res://assets/Models/Power-Ups/Extra_Life.FBX" id="1_htlu8"]
+[ext_resource type="PackedScene" uid="uid://cnp3p025fctb3" path="res://assets/Models/Power-Ups/banana_peel.fbx" id="1_htlu8"]
 
 [sub_resource type="GDScript" id="GDScript_htlu8"]
 script/source = "extends Area3D
@@ -15,18 +15,20 @@ func _on_body_entered(body: Node3D) -> void:
 		queue_free()
 "
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_wvo54"]
-radius = 0.698636
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wvo54"]
+radius = 0.922933
+height = 2.42072
 
 [node name="Banana" type="Area3D"]
 script = SubResource("GDScript_htlu8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("SphereShape3D_wvo54")
-
-[node name="Extra_Life" parent="." instance=ExtResource("1_htlu8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.202801, 0.226188, -2.15243)
+shape = SubResource("CapsuleShape3D_wvo54")
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="banana_peel" parent="." instance=ExtResource("1_htlu8")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
