@@ -46,3 +46,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0799768, -0.085351, 12.9433
 
 [node name="Banana" parent="." instance=ExtResource("3_dmp64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142087, -0.085351, 17.2896)
+
+[node name="Nissan GTR2" parent="." instance=ExtResource("2_4hew7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7572, 0.747609, 18.9628)
+player_device_id = 1
