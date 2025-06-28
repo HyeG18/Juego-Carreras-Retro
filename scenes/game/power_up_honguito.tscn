@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://brpt4wnfb70sf"]
+
+[ext_resource type="Script" uid="uid://cyleln2s0hace" path="res://scrpits/game/honguito.gd" id="1_ngcdk"]
+[ext_resource type="PackedScene" uid="uid://bjy8qrqvu0ls4" path="res://assets/Models/Power-Ups/Power_Up.FBX" id="1_x0262"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k0237"]
+radius = 0.907669
+
+[node name="Honguito" type="Area3D"]
+script = ExtResource("1_ngcdk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.545901, 0.126212, 0.0323651, -0.129252, 0.542165, 0.0658434, -0.0164583, -0.071498, 0.556419, 0.024, 1, 0.052)
+shape = SubResource("SphereShape3D_k0237")
+
+[node name="Power_Up" parent="." instance=ExtResource("1_x0262")]
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
