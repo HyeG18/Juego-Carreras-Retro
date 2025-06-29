@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://bn7qpuy6rwsmn"]
+
+[ext_resource type="Script" uid="uid://bns0c5hol6hs" path="res://scenes/game/game.gd" id="1_7h61r"]
+[ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_sul5r"]
+[ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="3_0sr1o"]
+
+[node name="Game2P" type="Node"]
+script = ExtResource("1_7h61r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="Mundo" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_sul5r")]
+
+[node name="Nissan GTR" parent="HBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("3_0sr1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.159885, 0.864012, 7.64112)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(576, 648)
+render_target_update_mode = 4
+
+[node name="Nissan GTR2" parent="HBoxContainer/SubViewportContainer2/SubViewport" instance=ExtResource("3_0sr1o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7572, 0.747609, 18.9628)
+player_device_id = 1

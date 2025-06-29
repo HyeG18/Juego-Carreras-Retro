@@ -1,7 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://oplay2dwowr8"]
+[gd_scene load_steps=6 format=3 uid="uid://oplay2dwowr8"]
 
-[ext_resource type="Script" uid="uid://ceeli8ke1rlh3" path="res://scenes/game/mundo.gd" id="1_7qphv"]
-[ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="2_4hew7"]
 [ext_resource type="PackedScene" uid="uid://brpt4wnfb70sf" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
 [ext_resource type="PackedScene" uid="uid://ds6d62uih0hle" path="res://scenes/game/banana.tscn" id="3_dmp64"]
 
@@ -19,7 +17,6 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="Mundo" type="Node3D"]
-script = ExtResource("1_7qphv")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -40,15 +37,8 @@ transform = Transform3D(-0.000354824, -0.0131895, 0.999913, 0.999638, -0.0268923
 use_collision = true
 size = Vector3(5, 1, 5)
 
-[node name="Nissan GTR" parent="." instance=ExtResource("2_4hew7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36608, 0.74761, 7.64559)
-
 [node name="Area3D" parent="." instance=ExtResource("2_t54x5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0799768, -0.085351, 12.9433)
 
 [node name="Banana" parent="." instance=ExtResource("3_dmp64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142087, -0.085351, 17.2896)
-
-[node name="Nissan GTR2" parent="." instance=ExtResource("2_4hew7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.7572, 0.747609, 18.9628)
-player_device_id = 1
