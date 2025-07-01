@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1obixgn5c8ho"]
+[gd_scene load_steps=6 format=3 uid="uid://c1obixgn5c8ho"]
 
 [ext_resource type="Texture2D" uid="uid://j54swu8k727j" path="res://assets/images/background.png" id="1_cghgw"]
 [ext_resource type="Texture2D" uid="uid://dn0j62cnvhbn1" path="res://assets/images/singleplayer.png" id="2_1pxh0"]
 [ext_resource type="Texture2D" uid="uid://bpdd5rui3wsri" path="res://assets/images/singleplayerhovered.png" id="3_e11en"]
 [ext_resource type="Texture2D" uid="uid://droxdhjypqahp" path="res://assets/images/multiplayer.png" id="4_288ov"]
 [ext_resource type="Texture2D" uid="uid://dpsb0apatp57n" path="res://assets/images/multiplayerhovered.png" id="5_tub5d"]
-[ext_resource type="Texture2D" uid="uid://dpn4v6gx76gwj" path="res://assets/images/options.png" id="6_dnmb1"]
-[ext_resource type="Texture2D" uid="uid://dpylkprg7n2ko" path="res://assets/images/optionshovered.png" id="7_5j7hh"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -68,11 +66,3 @@ texture_normal = ExtResource("4_288ov")
 texture_pressed = ExtResource("5_tub5d")
 texture_hover = ExtResource("5_tub5d")
 texture_focused = ExtResource("5_tub5d")
-
-[node name="options" type="TextureButton" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-texture_normal = ExtResource("6_dnmb1")
-texture_pressed = ExtResource("7_5j7hh")
-texture_hover = ExtResource("7_5j7hh")
-texture_focused = ExtResource("7_5j7hh")
