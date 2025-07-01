@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bn7qpuy6rwsmn"]
 
-[ext_resource type="Script" uid="uid://bns0c5hol6hs" path="res://scenes/game/game.gd" id="1_7h61r"]
+[ext_resource type="Script" path="res://scenes/game/game.gd" id="1_7h61r"]
 [ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_sul5r"]
 [ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="3_0sr1o"]
 
