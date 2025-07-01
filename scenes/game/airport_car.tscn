@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cti3pua6kwmed"]
+
+[ext_resource type="PackedScene" uid="uid://de52x8ynwqi0i" path="res://assets/Models/Carts/Airport Car.fbx" id="1_5nx8t"]
+[ext_resource type="Script" uid="uid://qsrh8rn4rrpf" path="res://scrpits/game/airport_car.gd" id="1_j4dcu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j4dcu"]
+size = Vector3(0.92041, 1.84857, 1.96008)
+
+[node name="Airport Car" type="VehicleBody3D"]
+script = ExtResource("1_j4dcu")
+
+[node name="Airport Car" parent="." instance=ExtResource("1_5nx8t")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0397949, 0.489655, 0.480042)
+shape = SubResource("BoxShape3D_j4dcu")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, 8.74228e-08, 1, -8.74228e-08, -7.64274e-15, -8.74228e-08, -1, 0.49043, 0.843775, -1.33677)
+fov = 122.125
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-0.524343, 0, 0.851507, 0, 1, 0, -0.851507, 0, -0.524343, 0, 0, 0)
