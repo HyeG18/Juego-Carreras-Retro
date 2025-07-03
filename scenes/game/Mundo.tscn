@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://oplay2dwowr8"]
+[gd_scene load_steps=9 format=3 uid="uid://oplay2dwowr8"]
 
 [ext_resource type="PackedScene" uid="uid://brpt4wnfb70sf" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
+[ext_resource type="PackedScene" uid="uid://cti3pua6kwmed" path="res://scenes/game/airport_car.tscn" id="3_7qphv"]
 [ext_resource type="PackedScene" uid="uid://ds6d62uih0hle" path="res://scenes/game/banana.tscn" id="3_dmp64"]
+[ext_resource type="PackedScene" uid="uid://bm88j2bvjsvsg" path="res://assets/Models/Carts/GoCart.FBX" id="4_i3df0"]
+[ext_resource type="PackedScene" uid="uid://cnn0hky5uiv12" path="res://assets/Models/Carts/thunderbolt.fbx" id="5_0pwxs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsxc0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -42,3 +45,12 @@ transform = Transform3D(-0.445085, -0.0399305, 0.894598, 0.0494366, 0.996386, 0.
 
 [node name="Banana" parent="." instance=ExtResource("3_dmp64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142087, -0.085351, 17.2896)
+
+[node name="Airport Car" parent="." instance=ExtResource("3_7qphv")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0.0163879, 0.999866, -7.16338e-10, 0.999866, -0.0163879, -4.37055e-08, 7.20542, -0.0528109, 14.4738)
+
+[node name="GoCart" parent="." instance=ExtResource("4_i3df0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.43003, -0.085351, 19.193)
+
+[node name="thunderbolt" parent="." instance=ExtResource("5_0pwxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.66239, -0.0623001, 18.8399)
