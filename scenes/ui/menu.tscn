@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1obixgn5c8ho"]
+[gd_scene load_steps=7 format=3 uid="uid://c1obixgn5c8ho"]
 
 [ext_resource type="Texture2D" uid="uid://j54swu8k727j" path="res://assets/images/background.png" id="1_cghgw"]
+[ext_resource type="Script" uid="uid://cuswdqqrwedlv" path="res://scrpits/ui/menu.gd" id="1_ntye7"]
 [ext_resource type="Texture2D" uid="uid://dn0j62cnvhbn1" path="res://assets/images/singleplayer.png" id="2_1pxh0"]
 [ext_resource type="Texture2D" uid="uid://bpdd5rui3wsri" path="res://assets/images/singleplayerhovered.png" id="3_e11en"]
 [ext_resource type="Texture2D" uid="uid://droxdhjypqahp" path="res://assets/images/multiplayer.png" id="4_288ov"]
@@ -13,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ntye7")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
