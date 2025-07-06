@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://howhgdel7jxd"]
+
+[ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_xo2qa"]
+[ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="2_xj6xx"]
+
+[node name="game1P" type="Node"]
+
+[node name="Mundo" parent="." instance=ExtResource("1_xo2qa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.653596, 1.56112, 1.50379)
+
+[node name="Nissan GTR" parent="." instance=ExtResource("2_xj6xx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0616, 2.30873, 1.20924)

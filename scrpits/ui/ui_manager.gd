@@ -3,7 +3,7 @@ extends Node
 # Configuración de rutas (asegúrate que estas rutas sean correctas)
 @export_file("*.tscn") var start_scene_path: String = "res://scenes/ui/start.tscn"
 @export_file("*.tscn") var main_menu_scene_path: String = "res://scenes/ui/menu.tscn"
-@export_file("*.tscn") var single_player_game_scene_path: String = "res://scenes/game/single_player_game.tscn"
+@export_file("*.tscn") var single_player_game_scene_path: String = "res://scenes/game/game_1p.tscn"
 @export_file("*.tscn") var multiplayer_game_scene_path: String = "res://scenes/game/game2P.tscn"
 
 
