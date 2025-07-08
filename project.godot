@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 ui_manager="*res://scrpits/ui/ui_manager.gd"
 
+[dotnet]
+
+project/assembly_name="Juego-Carreras-Retro"
+
 [input]
 
 acelerar_1={
