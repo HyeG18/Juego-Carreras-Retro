@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx2vcace6uu5x"]
+
+[ext_resource type="PackedScene" uid="uid://drnd5t4yaok2" path="res://assets/Models/Map/mapa.fbx" id="1_ilkq4"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="mapa" parent="." instance=ExtResource("1_ilkq4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.4115, 45.6561, -152.017)
