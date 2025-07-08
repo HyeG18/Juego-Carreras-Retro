@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfyitflpvqwrr"]
+
+[ext_resource type="PackedScene" uid="uid://nfcp0i7u4cfj" path="res://assets/maps/mapa.blend" id="1_k4lq1"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MapGeometry" parent="." instance=ExtResource("1_k4lq1")]
