@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2ym367cw1yp0"]
+
+[ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_h5d76"]
+[ext_resource type="Shader" uid="uid://b5gdlv5gtxmhs" path="res://shaders/pruebaMapar.gdshader" id="2_dgbal"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dgbal"]
+shader = ExtResource("2_dgbal")
+shader_parameter/pixel_size = Vector2(4, 4)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dgbal"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(1154, 643)
+
+[node name="Mundo" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_h5d76")]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dgbal")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("ViewportTexture_dgbal")
+stretch_mode = 5
