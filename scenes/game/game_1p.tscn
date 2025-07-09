@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://howhgdel7jxd"]
+[gd_scene load_steps=3 format=3 uid="uid://cwyrjtxrdjyeb"]
 
-[ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_xo2qa"]
+[ext_resource type="PackedScene" uid="uid://b0bc6fa4urger" path="res://scenes/game/Mundo.tscn" id="1_xo2qa"]
 [ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="2_xj6xx"]
 
 [node name="game1P" type="Node"]
