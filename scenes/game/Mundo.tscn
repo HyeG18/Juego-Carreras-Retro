@@ -118,6 +118,42 @@ func _ready():
 		color
 	)
 	
+	# Sexta barrera izquierda
+	create_barrier_between_points(
+		Vector3(4.149, -3.916, -119.419),
+		Vector3(4.149, -3.916, -123.196),
+		height,
+		thickness,
+		color
+	)
+	
+	# Sexta barrera derecha
+	create_barrier_between_points(
+		Vector3(1.648, -3.875, -119.419),
+		Vector3(1.648, -3.875, -122.916),
+		height,
+		thickness,
+		color
+	)
+	
+	# Septima barrera izquierda
+	create_barrier_between_points(
+		Vector3(-0.978, -3.832, -122.916),
+		Vector3(-0.978, -3.832, -105.372),
+		height,
+		thickness,
+		color
+	)
+	
+	# Septima barrera derecha
+	create_barrier_between_points(
+		Vector3(-3.374, -3.792, -122.916),
+		Vector3(-3.374, -3.792, -104.94),
+		height,
+		thickness,
+		color
+	)
+	
 	# Ejemplo de barrera curva
 	create_curve_barrier(
 		Vector3(0, -3.8, -50),  # Centro de la curva
@@ -324,6 +360,30 @@ transform = Transform3D(0.999748, -0.0195821, 0.0112164, -0.021974, -0.731551, 0
 
 [node name="Marker3D18" type="Marker3D" parent="."]
 transform = Transform3D(0.999748, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, 5.72597, -3.94208, -118.25)
+
+[node name="Marker3D21" type="Marker3D" parent="."]
+transform = Transform3D(0.999748, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, 4.14913, -3.91612, -119.419)
+
+[node name="Marker3D23" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, 1.64815, -3.87496, -119.419)
+
+[node name="Marker3D24" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, 1.64815, -3.87496, -122.916)
+
+[node name="Marker3D25" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, -3.37356, -3.7923, -122.916)
+
+[node name="Marker3D28" type="Marker3D" parent="."]
+transform = Transform3D(0.99975, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681437, -0.00513853, -0.681508, -0.731794, -3.37356, -3.79231, -104.94)
+
+[node name="Marker3D26" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, -0.978125, -3.83173, -122.916)
+
+[node name="Marker3D27" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, -0.978125, -3.83173, -105.372)
+
+[node name="Marker3D22" type="Marker3D" parent="."]
+transform = Transform3D(0.999749, -0.0195821, 0.0112164, -0.021974, -0.731551, 0.681435, -0.00513853, -0.681508, -0.731794, 4.14913, -3.91612, -123.196)
 
 [node name="Marker3D10" type="Marker3D" parent="."]
 transform = Transform3D(0.999962, 0.00891853, 0, -0.00891853, 0.999962, 0, 0, 0, 1, 12.475, -4.05316, -108.776)
