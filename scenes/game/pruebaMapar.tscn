@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2ym367cw1yp0"]
+[gd_scene load_steps=7 format=3 uid="uid://b2ym367cw1yp0"]
 
+[ext_resource type="Script" uid="uid://01ulcao6jf36" path="res://scrpits/game/prueba_mapar.gd" id="1_dgbal"]
 [ext_resource type="PackedScene" uid="uid://oplay2dwowr8" path="res://scenes/game/Mundo.tscn" id="1_h5d76"]
 [ext_resource type="Shader" uid="uid://b5gdlv5gtxmhs" path="res://shaders/pruebaMapar.gdshader" id="2_dgbal"]
+[ext_resource type="FontFile" uid="uid://i6mqj2a8iu0b" path="res://assets/fonts/Audiowide-Regular.ttf" id="3_1ndkb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dgbal"]
 shader = ExtResource("2_dgbal")
@@ -11,8 +13,10 @@ shader_parameter/pixel_size = Vector2(4, 4)
 viewport_path = NodePath("SubViewportContainer/SubViewport")
 
 [node name="Control" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_dgbal")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
@@ -20,7 +24,9 @@ offset_right = 512.0
 offset_bottom = 512.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
 size = Vector2i(1154, 643)
+render_target_update_mode = 4
 
 [node name="Mundo" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_h5d76")]
 
@@ -31,3 +37,19 @@ offset_right = 40.0
 offset_bottom = 40.0
 texture = SubResource("ViewportTexture_dgbal")
 stretch_mode = 5
+
+[node name="RaceTimerLabel" type="Label" parent="."]
+process_mode = 3
+layout_direction = 2
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("3_1ndkb")
+theme_override_font_sizes/font_size = 50
+horizontal_alignment = 1
+
+[node name="RaceTimer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 0.1
+one_shot = true
+autostart = true
