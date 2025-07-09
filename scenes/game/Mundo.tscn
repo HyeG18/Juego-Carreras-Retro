@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0bc6fa4urger"]
+[gd_scene load_steps=11 format=3 uid="uid://b0bc6fa4urger"]
 
+[ext_resource type="PackedScene" uid="uid://31otwn4nd158" path="res://assets/maps/mapa.glb" id="1_7qphv"]
 [ext_resource type="Script" uid="uid://bnn6cqj6j1apc" path="res://scenes/game/suelo_color.gd" id="1_85bk1"]
-[ext_resource type="PackedScene" uid="uid://brpt4wnfb70sf" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
+[ext_resource type="PackedScene" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
 [ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="3_7qphv"]
-[ext_resource type="PackedScene" uid="uid://ds6d62uih0hle" path="res://scenes/game/banana.tscn" id="3_dmp64"]
-[ext_resource type="PackedScene" uid="uid://4kbkiwq5yd0c" path="res://scenes/game/Vehiculo2.tscn" id="5_85bk1"]
+[ext_resource type="PackedScene" path="res://scenes/game/banana.tscn" id="3_dmp64"]
+[ext_resource type="PackedScene" path="res://scenes/game/Vehiculo2.tscn" id="5_85bk1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsxc0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -23,24 +24,53 @@ glow_enabled = true
 script/source = "extends StaticBody3D
 
 func _ready():
-	var thickness = 0.1  # Grosor más delgado para mayor precisión
-	var height = 3.0
-	var color = Color(1, 0, 0, 0.5)  # Rojo semitransparente
+	var thickness = 0.1  # Grosor delgado
+	var height = 1.5     # Altura adecuada
+	var color = Color(1, 0, 0, 0.7)  # Rojo semitransparente
 	
-	# Barrera izquierda (paralela al eje Z)
-	create_z_aligned_barrier(-0.36, -104.60, -91.635, height, thickness, color)
+	# Barrera izquierda (diagonal)
+	create_barrier_between_points(
+		Vector3(-0.893, -3.833, -104.97),
+		Vector3(-0.982, -3.833, -91.675),
+		height,
+		thickness,
+		color
+	)
 	
-	# Barrera derecha (paralela al eje Z)
-	create_z_aligned_barrier(-3.08, -104.60, -91.635, height, thickness, color)
+	# Barrera derecha (vertical)
+	create_barrier_between_points(
+		Vector3(-3.414, -3.717, -105.002),
+		Vector3(-3.414, -3.717, -91.623),
+		height,
+		thickness,
+		color
+	)
 	
-	# Barrera curva
-	create_curve_barrier(Vector3(20, 0, 50), 15.0, 90.0, height, thickness, color)
+	# Ejemplo de barrera curva
+	create_curve_barrier(
+		Vector3(0, -3.8, -50),  # Centro de la curva
+		10.0,                   # Radio
+		-90.0,                  # Ángulo inicial (grados)
+		180.0,                  # Ángulo de arco (grados)
+		height,
+		thickness,
+		color
+	)
 
-# Crea barreras paralelas al eje Z
-func create_z_aligned_barrier(x: float, z_start: float, z_end: float, height: float, thickness: float, color: Color):
-	var length = abs(z_end - z_start)
-	var center_z = (z_start + z_end) / 2
-	var center = Vector3(x, -4.34 + height/2, center_z)
+# Función corregida para barreras rectas
+func create_barrier_between_points(start: Vector3, end: Vector3, height: float, thickness: float, color: Color):
+	# Calcular dirección y longitud
+	var direction = (end - start).normalized()
+	var length = start.distance_to(end)
+	
+	# Calcular centro
+	var center = (start + end) / 2
+	center.y = min(start.y, end.y) + height / 2
+	
+	# Crear material
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 	
 	# Crear colisión
 	var collision_shape = CollisionShape3D.new()
@@ -48,62 +78,102 @@ func create_z_aligned_barrier(x: float, z_start: float, z_end: float, height: fl
 	box_shape.size = Vector3(thickness, height, length)
 	collision_shape.shape = box_shape
 	add_child(collision_shape)
-	collision_shape.global_position = center
 	
 	# Crear malla visible
 	var mesh_instance = MeshInstance3D.new()
 	var box_mesh = BoxMesh.new()
 	box_mesh.size = Vector3(thickness, height, length)
-	
-	var material = StandardMaterial3D.new()
-	material.albedo_color = color
-	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 	box_mesh.material = material
-	
 	mesh_instance.mesh = box_mesh
 	add_child(mesh_instance)
-	mesh_instance.global_position = center
-
-# Barrera curva mejorada
-func create_curve_barrier(center: Vector3, radius: float, angle_degrees: float, height: float, thickness: float, color: Color):
-	var segment_count = max(8, int(angle_degrees / 10))  # Más segmentos para mejor precisión
-	var angle_start = -PI/2  # Empezar en el eje -Z
-	var angle_end = angle_start + deg_to_rad(angle_degrees)
-	var angle_step = (angle_end - angle_start) / segment_count
 	
-	# Crear material
+	# Posicionar
+	collision_shape.global_position = center
+	mesh_instance.global_position = center
+	
+	# CORRECCIÓN PARA BARRERAS DIAGONALES
+	# Calcular el ángulo correcto de rotación
+	var horizontal_direction = Vector2(direction.x, direction.z).normalized()
+	var angle = atan2(horizontal_direction.x, horizontal_direction.y)
+	
+	# Aplicar rotación
+	collision_shape.rotation.y = angle
+	mesh_instance.rotation.y = angle
+
+# Función para barreras curvas (sin cambios)
+func create_curve_barrier(center: Vector3, radius: float, start_angle_deg: float, arc_angle_deg: float, height: float, thickness: float, color: Color):
+	# Convertir ángulos a radianes
+	var start_angle = deg_to_rad(start_angle_deg)
+	var arc_angle = deg_to_rad(arc_angle_deg)
+	
+	# Determinar número de segmentos
+	var segment_count = max(8, int(abs(arc_angle_deg) / 10))
+	var angle_step = arc_angle / segment_count
+	
+	# Crear material para todos los segmentos
 	var material = StandardMaterial3D.new()
 	material.albedo_color = color
 	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 	
-	for i in range(segment_count + 1):
-		var angle = angle_start + i * angle_step
-		var x = center.x + radius * cos(angle)
-		var z = center.z + radius * sin(angle)
-		var pos = Vector3(x, center.y, z)
+	for i in range(segment_count):
+		# Calcular ángulos para este segmento
+		var angle1 = start_angle + i * angle_step
+		var angle2 = angle1 + angle_step
 		
-		# Calcular dirección tangente
-		var tangent_angle = angle + PI/2
-		var tangent = Vector3(cos(tangent_angle), 0, sin(tangent_angle))
+		# Calcular puntos en la curva
+		var point1 = Vector3(
+			center.x + radius * cos(angle1),
+			center.y,
+			center.z + radius * sin(angle1)
+		)
+		
+		var point2 = Vector3(
+			center.x + radius * cos(angle2),
+			center.y,
+			center.z + radius * sin(angle2)
+		)
+		
+		# Calcular dirección tangente (perpendicular al radio)
+		var tangent_angle = angle1 + angle_step/2
+		var tangent = Vector3(
+			-sin(tangent_angle), 
+			0, 
+			cos(tangent_angle)
+		).normalized()
+		
+		# Calcular punto medio para posicionamiento
+		var segment_center = Vector3(
+			center.x + radius * cos(tangent_angle),
+			center.y,
+			center.z + radius * sin(tangent_angle)
+		)
+		segment_center.y = min(point1.y, point2.y) + height / 2
+		
+		# Calcular longitud del segmento
+		var segment_length = point1.distance_to(point2)
 		
 		# Crear colisión
 		var collision_shape = CollisionShape3D.new()
 		var box_shape = BoxShape3D.new()
-		box_shape.size = Vector3(thickness, height, radius * angle_step)
+		box_shape.size = Vector3(thickness, height, segment_length)
 		collision_shape.shape = box_shape
 		add_child(collision_shape)
-		collision_shape.global_position = pos
-		collision_shape.look_at(pos + tangent, Vector3.UP)  # Apuntar en dirección tangente
+		collision_shape.global_position = segment_center
 		
 		# Crear malla visible
 		var mesh_instance = MeshInstance3D.new()
 		var box_mesh = BoxMesh.new()
-		box_mesh.size = Vector3(thickness, height, radius * angle_step)
+		box_mesh.size = Vector3(thickness, height, segment_length)
 		box_mesh.material = material
 		mesh_instance.mesh = box_mesh
 		add_child(mesh_instance)
-		mesh_instance.global_position = pos
-		mesh_instance.look_at(pos + tangent, Vector3.UP)
+		mesh_instance.global_position = segment_center
+		
+		# Orientar según la tangente de la curva
+		var horizontal_tangent = Vector2(tangent.x, tangent.z).normalized()
+		var angle = atan2(horizontal_tangent.x, horizontal_tangent.y)
+		collision_shape.rotation.y = angle
+		mesh_instance.rotation.y = angle
 "
 
 [node name="Mundo" type="Node3D"]
@@ -123,19 +193,6 @@ transform = Transform3D(-0.000354824, -0.0131895, 0.999913, 0.999638, -0.0268923
 use_collision = true
 size = Vector3(5, 1, 5)
 
-[node name="mapa" parent="Mapa"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1449, 13.2873, 49.7863)
-script = null
-
 [node name="Area3D" parent="." instance=ExtResource("2_t54x5")]
 transform = Transform3D(-0.445085, -0.0399305, 0.894598, 0.0494366, 0.996386, 0.0690698, -0.894123, 0.0749678, -0.441502, 2.36871, -0.671278, 16.3047)
 
@@ -143,27 +200,32 @@ transform = Transform3D(-0.445085, -0.0399305, 0.894598, 0.0494366, 0.996386, 0.
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.142087, -0.085351, 17.2896)
 
 [node name="Nissan GTR" parent="." instance=ExtResource("3_7qphv")]
-transform = Transform3D(0.999793, 0.0133995, -0.0153136, -0.0135187, 0.999879, -0.00770832, 0.0152081, 0.00791379, 0.999853, -1.77264, -3.9398, -99.1603)
+transform = Transform3D(0.999633, 0.0223164, -0.0153817, -0.0224349, 0.999721, -0.00757144, 0.0152081, 0.00791379, 0.999853, -2.17524, -3.52538, -101.498)
 
 [node name="InvisibleWalls" type="StaticBody3D" parent="."]
 script = SubResource("GDScript_dmp64")
 
 [node name="Suelo" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18784, -5.36191, -104.833)
+transform = Transform3D(0.999951, 0.00991331, 0, -0.00991331, 0.999951, 0, 0, 0, 1, 0.793697, -5.2999, -105.135)
 use_collision = true
 size = Vector3(52.5167, 1, 44.1237)
 script = ExtResource("1_85bk1")
 
 [node name="Marker3D" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367813, -4.34464, -104.606)
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, -0.893204, -3.83313, -104.973)
 
 [node name="Marker3D4" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368, -4.345, -91.635)
+transform = Transform3D(0.999714, -0.0238947, 0.00182253, -0.0239496, -0.993564, 0.110726, -0.000834954, -0.110737, -0.993849, -3.414, -3.717, -91.623)
 
 [node name="Marker3D2" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08, -4.345, -104.606)
+transform = Transform3D(0.999962, 0.00891853, 0, -0.00891853, 0.999962, 0, 0, 0, 1, -3.41397, -3.71729, -105.002)
 
 [node name="Marker3D3" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08, -4.345, -91.6354)
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, -0.981659, -3.83154, -91.675)
+
+[node name="mapa" parent="." instance=ExtResource("1_7qphv")]
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, -26.3788, 13.8707, 49.7578)
+
 [node name="Nissan GTR2" parent="." instance=ExtResource("5_85bk1")]
-transform = Transform3D(0.999864, 0.0164577, 0, -0.0164577, 0.999864, 0, 0, 0, 1, 8.13258, -4.00963, -112.463)
+transform = Transform3D(0.999678, 0.0253744, 0, -0.0253744, 0.999678, 0, 0, 0, 1, -2.61106, -4.74241, -107.522)
+visible = false
