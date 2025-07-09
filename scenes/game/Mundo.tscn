@@ -46,6 +46,24 @@ func _ready():
 		color
 	)
 	
+	# Segunda barrera izquierda
+	create_barrier_between_points(
+		Vector3(0.3, -3.853, -90.273),
+		Vector3(8.582, -3.853, -90.273),
+		height,
+		thickness,
+		color
+	)
+	
+	# Segunda barrera derecha
+	create_barrier_between_points(
+		Vector3(0.3, -3.853, -87.691),
+		Vector3(8.505, -3.988, -87.691),
+		height,
+		thickness,
+		color
+	)
+	
 	# Ejemplo de barrera curva
 	create_curve_barrier(
 		Vector3(0, -3.8, -50),  # Centro de la curva
@@ -213,6 +231,18 @@ script = ExtResource("1_85bk1")
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, -0.893204, -3.83313, -104.973)
+
+[node name="Marker3D5" type="Marker3D" parent="."]
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, 0.300153, -3.85277, -90.273)
+
+[node name="Marker3D8" type="Marker3D" parent="."]
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, 8.58241, -3.98909, -90.273)
+
+[node name="Marker3D6" type="Marker3D" parent="."]
+transform = Transform3D(0.999961, 0.00891852, 0, -0.00891852, 0.999961, 0, 0, 0, 1, 0.300153, -3.85277, -87.6914)
+
+[node name="Marker3D7" type="Marker3D" parent="."]
+transform = Transform3D(0.999961, 0.00891853, 0, -0.00891853, 0.999961, 0, 0, 0, 1, 8.50497, -3.98782, -87.6914)
 
 [node name="Marker3D4" type="Marker3D" parent="."]
 transform = Transform3D(0.999714, -0.0238947, 0.00182253, -0.0239496, -0.993564, 0.110726, -0.000834954, -0.110737, -0.993849, -3.414, -3.717, -91.623)
