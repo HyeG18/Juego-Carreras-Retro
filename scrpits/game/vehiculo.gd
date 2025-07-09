@@ -11,6 +11,12 @@ var speed_timer: Timer
 var is_spinning := false
 var spin_timer: Timer
 
+# Manejo de colisiones
+var barrier_rebound_force := 25.0  # Fuerza del rebote contra barreras
+var barrier_cooldown := 0.3        # Tiempo mínimo entre impactos
+var last_barrier_hit_time := 0.0
+var barrier_slowdown_factor := 0.6 # % de velocidad que se pierde al chocar
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -27,6 +33,20 @@ func _ready() -> void:
 	add_child(spin_timer)
 	
 	print("Carro del Jugador %d (Device ID: %d) listo." % [player_device_id + 1, player_device_id])
+	# Crear área de detección de colisiones
+	var collision_area = Area3D.new()
+	collision_area.name = "CollisionArea"
+	collision_area.collision_layer = 0
+	collision_area.collision_mask = 1  # Detecta capa Environment
+	collision_area.body_entered.connect(_on_body_entered)
+	
+	# Crear forma de colisión ajustada al vehículo
+	var collision_shape = CollisionShape3D.new()
+	collision_shape.shape = BoxShape3D.new()
+	collision_shape.shape.size = Vector3(2.0, 1.0, 4.0)  # Ajusta según tu vehículo
+	
+	collision_area.add_child(collision_shape)
+	add_child(collision_area)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -85,3 +105,36 @@ func apply_spin_out(force: float, duration: float) -> void:
 
 func _on_spin_timeout():
 	is_spinning = false
+
+# --- Manejo de colisiones con barreras ---
+func _on_body_entered(body: Node) -> void:
+	# Solo reaccionar a barreras y cuando no estamos en estado de giro
+	if body.is_in_group("track_barriers") and not is_spinning:
+		var current_time = Time.get_ticks_msec() / 1000.0
+		
+		# Evitar múltiples detecciones rápidas
+		if current_time - last_barrier_hit_time > barrier_cooldown:
+			last_barrier_hit_time = current_time
+			_handle_barrier_collision()
+
+			
+func _handle_barrier_collision():
+	# Calcular dirección de rebote (opuesta a la dirección actual)
+	var velocity_normalized = linear_velocity.normalized()
+	
+	# Evitar división por cero si la velocidad es muy baja
+	if velocity_normalized.length() < 0.1:
+		velocity_normalized = -global_transform.basis.z
+	
+	# Aplicar fuerza de rebote
+	var bounce_direction = -velocity_normalized
+	linear_velocity += bounce_direction * barrier_rebound_force
+	
+	# Reducir velocidad después del choque
+	linear_velocity *= barrier_slowdown_factor
+	
+	# Pequeño efecto de giro aleatorio
+	if randf() > 0.3:  # 70% de probabilidad de alterar la dirección
+		steering += randf_range(-0.8, 0.8)
+		steering = clamp(steering, -MAX_STEER, MAX_STEER)
+	
