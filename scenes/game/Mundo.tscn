@@ -22,47 +22,89 @@ glow_enabled = true
 [sub_resource type="GDScript" id="GDScript_dmp64"]
 script/source = "extends StaticBody3D
 
-
 func _ready():
-    # Crear forma de colisión para rectas
-    create_straight_barrier(Vector3(0, 0, 50), Vector3(10, 0, 50), 3.0)
-    
-    # Crear forma de colisión para curvas
-    create_curve_barrier(Vector3(20, 0, 50), 15.0, 90.0, 3.0)
+	var thickness = 0.1  # Grosor más delgado para mayor precisión
+	var height = 3.0
+	var color = Color(1, 0, 0, 0.5)  # Rojo semitransparente
+	
+	# Barrera izquierda (paralela al eje Z)
+	create_z_aligned_barrier(-0.36, -104.60, -91.635, height, thickness, color)
+	
+	# Barrera derecha (paralela al eje Z)
+	create_z_aligned_barrier(-3.08, -104.60, -91.635, height, thickness, color)
+	
+	# Barrera curva
+	create_curve_barrier(Vector3(20, 0, 50), 15.0, 90.0, height, thickness, color)
 
-func create_straight_barrier(start: Vector3, end: Vector3, height: float):
-    var collision_shape = CollisionShape3D.new()
-    var box_shape = BoxShape3D.new()
-    
-    var length = start.distance_to(end)
-    var center = (start + end) / 2
-    var direction = (end - start).normalized()
-    
-    box_shape.size = Vector3(length, height, 0.5)
-    collision_shape.shape = box_shape
-    
-    add_child(collision_shape)
-    collision_shape.global_position = center
-    collision_shape.look_at(end, Vector3.UP)
+# Crea barreras paralelas al eje Z
+func create_z_aligned_barrier(x: float, z_start: float, z_end: float, height: float, thickness: float, color: Color):
+	var length = abs(z_end - z_start)
+	var center_z = (z_start + z_end) / 2
+	var center = Vector3(x, -4.34 + height/2, center_z)
+	
+	# Crear colisión
+	var collision_shape = CollisionShape3D.new()
+	var box_shape = BoxShape3D.new()
+	box_shape.size = Vector3(thickness, height, length)
+	collision_shape.shape = box_shape
+	add_child(collision_shape)
+	collision_shape.global_position = center
+	
+	# Crear malla visible
+	var mesh_instance = MeshInstance3D.new()
+	var box_mesh = BoxMesh.new()
+	box_mesh.size = Vector3(thickness, height, length)
+	
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	box_mesh.material = material
+	
+	mesh_instance.mesh = box_mesh
+	add_child(mesh_instance)
+	mesh_instance.global_position = center
 
-func create_curve_barrier(center: Vector3, radius: float, angle_degrees: float, height: float):
-    var segment_count = max(4, int(angle_degrees / 15))
-    var angle_step = deg_to_rad(angle_degrees / segment_count)
-    
-    for i in range(segment_count):
-        var angle = i * angle_step
-        var x = center.x + radius * cos(angle)
-        var z = center.z + radius * sin(angle)
-        
-        var collision_shape = CollisionShape3D.new()
-        var box_shape = BoxShape3D.new()
-        
-        box_shape.size = Vector3(radius * angle_step, height, 0.5)
-        collision_shape.shape = box_shape
-        
-        add_child(collision_shape)
-        collision_shape.global_position = Vector3(x, center.y, z)
-        collision_shape.rotation.y = angle + PI/2"
+# Barrera curva mejorada
+func create_curve_barrier(center: Vector3, radius: float, angle_degrees: float, height: float, thickness: float, color: Color):
+	var segment_count = max(8, int(angle_degrees / 10))  # Más segmentos para mejor precisión
+	var angle_start = -PI/2  # Empezar en el eje -Z
+	var angle_end = angle_start + deg_to_rad(angle_degrees)
+	var angle_step = (angle_end - angle_start) / segment_count
+	
+	# Crear material
+	var material = StandardMaterial3D.new()
+	material.albedo_color = color
+	material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
+	
+	for i in range(segment_count + 1):
+		var angle = angle_start + i * angle_step
+		var x = center.x + radius * cos(angle)
+		var z = center.z + radius * sin(angle)
+		var pos = Vector3(x, center.y, z)
+		
+		# Calcular dirección tangente
+		var tangent_angle = angle + PI/2
+		var tangent = Vector3(cos(tangent_angle), 0, sin(tangent_angle))
+		
+		# Crear colisión
+		var collision_shape = CollisionShape3D.new()
+		var box_shape = BoxShape3D.new()
+		box_shape.size = Vector3(thickness, height, radius * angle_step)
+		collision_shape.shape = box_shape
+		add_child(collision_shape)
+		collision_shape.global_position = pos
+		collision_shape.look_at(pos + tangent, Vector3.UP)  # Apuntar en dirección tangente
+		
+		# Crear malla visible
+		var mesh_instance = MeshInstance3D.new()
+		var box_mesh = BoxMesh.new()
+		box_mesh.size = Vector3(thickness, height, radius * angle_step)
+		box_mesh.material = material
+		mesh_instance.mesh = box_mesh
+		add_child(mesh_instance)
+		mesh_instance.global_position = pos
+		mesh_instance.look_at(pos + tangent, Vector3.UP)
+"
 
 [node name="Mundo" type="Node3D"]
 transform = Transform3D(0.999865, -0.0164577, 0, 0.0164577, 0.999865, 0, 0, 0, 1, 0, 0, 0)
@@ -101,3 +143,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18784, -5.36191, -104.833)
 use_collision = true
 size = Vector3(52.5167, 1, 44.1237)
 script = ExtResource("1_85bk1")
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.367813, -4.34464, -104.606)
+
+[node name="Marker3D4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368, -4.345, -91.635)
+
+[node name="Marker3D2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08, -4.345, -104.606)
+
+[node name="Marker3D3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.08, -4.345, -91.6354)
