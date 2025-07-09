@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://b0bc6fa4urger"]
 
-[ext_resource type="PackedScene" uid="uid://31otwn4nd158" path="res://assets/maps/mapa.glb" id="1_7qphv"]
 [ext_resource type="Script" uid="uid://bnn6cqj6j1apc" path="res://scenes/game/suelo_color.gd" id="1_85bk1"]
-[ext_resource type="PackedScene" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
+[ext_resource type="PackedScene" uid="uid://brpt4wnfb70sf" path="res://scenes/game/power_up_honguito.tscn" id="2_t54x5"]
 [ext_resource type="PackedScene" uid="uid://dl6k1lffi3njb" path="res://scenes/game/Vehiculo.tscn" id="3_7qphv"]
-[ext_resource type="PackedScene" path="res://scenes/game/banana.tscn" id="3_dmp64"]
+[ext_resource type="PackedScene" uid="uid://ds6d62uih0hle" path="res://scenes/game/banana.tscn" id="3_dmp64"]
+[ext_resource type="PackedScene" uid="uid://4kbkiwq5yd0c" path="res://scenes/game/Vehiculo2.tscn" id="5_85bk1"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xsxc0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -81,8 +81,18 @@ transform = Transform3D(-0.000354824, -0.0131895, 0.999913, 0.999638, -0.0268923
 use_collision = true
 size = Vector3(5, 1, 5)
 
-[node name="mapa" parent="Mapa" instance=ExtResource("1_7qphv")]
+[node name="mapa" parent="Mapa"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1449, 13.2873, 49.7863)
+script = null
 
 [node name="Area3D" parent="." instance=ExtResource("2_t54x5")]
 transform = Transform3D(-0.445085, -0.0399305, 0.894598, 0.0494366, 0.996386, 0.0690698, -0.894123, 0.0749678, -0.441502, 2.36871, -0.671278, 16.3047)
@@ -101,3 +111,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.18784, -5.36191, -104.833)
 use_collision = true
 size = Vector3(52.5167, 1, 44.1237)
 script = ExtResource("1_85bk1")
+
+[node name="Nissan GTR2" parent="." instance=ExtResource("5_85bk1")]
+transform = Transform3D(0.999864, 0.0164577, 0, -0.0164577, 0.999864, 0, 0, 0, 1, 8.13258, -4.00963, -112.463)
